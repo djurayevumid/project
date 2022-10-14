@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+            crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="/static/js/libs/jquery.cookie.js" th:src="@{/js/libs/jquery.cookie.js}"></script>
+    <script src="/static/js/authorization_check.js" th:src="@{/js/authorization_check.js}"></script>
+    <meta charset="UTF-8">
+    <title>Вопросы</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/static/css/common.css" th:href="@{/css/common.css}">
+    <link rel="stylesheet" type="text/css" href="/static/css/questions.css" th:href="@{/css/questions.css}">
+    <link rel="stylesheet" href="/static/css/auto-complete.css" th:href="@{/css/auto-complete.css}">
+</head>
+<body class="vh-100 bg-light">
+<header class="p-3 bg-light sticky-top">
+    <jm-header></jm-header>
+</header>
+<div class="d-flex">
+    <aside class="p-3">
+        <jm-sidebar id="sideBar"></jm-sidebar>
+    </aside>
+    <div class="container m-2 ml-auto mr-auto">
+        <div class="row">
+            <div class="col-sm-9">
+                <div class="row mt-3 mb-2">
+                    <div class="col-sm my-auto">
+                        <h1 class="fs-2">All Questions</h1>
+                    </div>
+                    <div class="col-sm my-auto text-lg-end">
+                        <a class="btn btn-primary" href="/question/ask" role="button">
+                            Ask Question
+                        </a>
+                    </div>
+                </div>
+                <div class="row align-content-between mb-4 pb-2 border-bottom">
+                    <div class="col-sm-auto my-auto">
+                        <p id="countAllQuestions" class="fs-6 my-auto"></p>
+                    </div>
+                    <div class="col-sm-auto my-auto text-lg-end">
+                        <button class="btn btn-outline-secondary btn-sm" id="newestButton">Newest</button>
+                        <button class="btn btn-outline-secondary btn-sm" id="unansweredButton">Unanswered</button>
+                        <button class="btn btn-outline-secondary btn-sm" id="reputationButton">Reputation</button>
+                    </div>
+                    <div class="col-sm my-auto text-lg-end">
+                        <button class="btn btn-outline-primary">
+                            Filter
+                        </button>
+                    </div>
+                </div>
+                <div id="table"></div>
+                <div class="pagenumbers s-pagination pager float-right" id="pagination"></div>
+            </div>
+            <div class="col-sm-3">
+                <div class="card mb-3">
+                    <div class="card-header py-2 text-secondary fs-m">Custom Filters</div>
+                    <div class="card-body">
+                        <a class="card-link filter-link fs-m m-0" href="#">Create a custom filter</a>
+                    </div>
+                </div>
+                <div class="card mb-3">
+                    <div class="card-header py-2 text-secondary fs-m">Watched Tags</div>
+                    <div class="card-body">
+                        <div class="track out-block out-1" id="trackedTagButtons"></div>
+                        <div id="trackedTagForm" data-hidden=true style="display: none">
+                            <p></p>
+                            <input class="form-control" name="searchTracked" id="searchTracked" type="text" placeholder="search.."
+                                   autocomplete="off" autofocus><br>
+                            <div class="errorField" id="trackedTagsError"></div>
+                                <div class="errorFormatField" id="lettersErrorTracked"></div>
+                                    <p></p>
+                            <div class="text-center">
+                                <button class="btn btn-primary btn-sm" type="button" id="addTrackedTagButton">Add a tracked tag</button>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <div class="mb-3" id="trackedImage">
+                                <svg aria-hidden="true" class="fc-blue-400 d:fc-blue-700 svg-spot spotSearch" width="48"
+                                     height="48" viewBox="0 0 48 48">
+                                    <path opacity=".2" d="M29.22 38.1a3.4 3.4 0 014.81-4.82l8.81 8.81a3.4 3.4 0 01-4.81 4.81l-8.81-8.8z"></path><path d="M18.5 5a1 1 0 100 2c.63 0 1.24.05 1.84.15a1 1 0 00.32-1.98A13.6 13.6 0 0018.5 5zm7.02 1.97a1 1 0 10-1.04 1.7 11.5 11.5 0 0 1 5.44 8.45 1 1 0 0 0 1.98-.24 13.5 13.5 0 0 0-6.38-9.91zM18.5 0a18.5 18.5 0 1010.76 33.55c.16.57.46 1.12.9 1.57L40 44.94A3.5 3.5 0 1044.94 40l-9.82-9.82c-.45-.45-1-.75-1.57-.9A18.5 18.5 0 0018.5 0zM2 18.5a16.5 16.5 0 1133 0 16.5 16.5 0 0 1-33 0zm29.58 15.2a1.5 1.5 0 112.12-2.12l9.83 9.83a1.5 1.5 0 11-2.12 2.12l-9.83-9.83z"></path></svg>
+                                <p class="text-secondary fs-sm">Watch tags to curate your list of questions.</p>
+                            </div>
+                            <p></p>
+                            <button class="btn btn-outline-primary fs-sm" id="openTrackedTagBtn">
+                                Watch a tag
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card mb-3">
+                    <div class="card-header py-2 text-secondary fs-m">Ignored Tags</div>
+                    <div class="card-body">
+                        <div class="ignore out-block out-1" id="ignoredTagButtons"></div>
+                        <div id="ignoredTagForm" data-hidden=true style="display: none">
+                            <p></p>
+                            <input class="form-control" name="searchIgnored" id="searchIgnored" type="text" placeholder="search.."
+                                   autocomplete="off" autofocus><br>
+                                <div class="errorField" id="ignoredTagsError"></div>
+                                <div class="errorFormatField" id="lettersErrorIgnored"></div>
+                            <p></p>
+                            <div class="text-center">
+                            <button class="btn btn-primary btn-sm" type="button" id="addIgnoredTagButton" >Add an ignored tag</button>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <p></p>
+                            <button class="btn btn-outline-primary fs-sm" id="openIgnoredTagBtn">
+                                Add an ignored tag
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="h5" id="tagsbar">Related Tags</h4>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer class="footer mt-auto bg-light" style="margin-left: 200px">
+    <jm-footer></jm-footer>
+</footer>
+<script type="text/javascript" src="/static/js/pagination.js" th:src="@{/js/pagination.js}"></script>
+<script type="text/javascript" src="/static/js/all_questions_on_page.js" th:src="@{/js/all_questions_on_page.js}"></script>
+<script type="text/javascript" src="/static/js/header.js" th:src="@{/js/header.js}"></script>
+<script type="text/javascript" src="/static/js/sidebar.js" th:src="@{/js/sidebar.js}"></script>
+<script type="text/javascript" src="/static/js/footer.js" th:src="@{/js/footer.js}"></script>
+<script src="/static/js/libs/auto-complete.js" th:src="@{/js/libs/auto-complete.js}"></script>
+<script type="text/javascript" src="/static/js/questions.js" th:src="@{/js/questions.js}"></script>
+<script type="text/javascript" src="/static/js/sidebar.js" th:src="@{/js/all_tags_on_page.js}"></script>
+</body>
+</html>

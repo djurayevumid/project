@@ -1,0 +1,86 @@
+.wmd-button-bar {
+    clear: both;
+    background-color: transparent;
+    margin: 10px 0 0 0;
+    padding: 0;
+    width: 100%;
+    border: 1px solid #ced4da;
+    border-bottom: 0;
+    min-height: 44px;
+    overflow: hidden;
+    z-index: 2;
+    position: relative;
+}
+
+.btr-sm {
+    border-top-left-radius: 3px !important;
+    border-top-right-radius: 3px !important;
+}
+
+.wmd-button-row {
+    padding: 0 4px 0 8px;
+    margin: 0;
+    display: flex;
+    list-style: none;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    height: 44px;
+    border-bottom: 1px solid #ced4da;
+}
+
+.wmd-button {
+    max-width: 28px;
+    height: 44px;
+    flex: 10 0 23px;
+    padding: 12px 0 0 0;
+    text-align: center;
+    cursor: pointer;
+}
+
+.wmd-button>span {
+    background-size: initial !important;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+}
+
+#description {
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+}
+
+#wmd-bold-button>span{
+    background-image: url(../images/page_template/icons/bold-text-icon.svg);
+}
+
+#wmd-italic-button>span{
+    background-image: url(../images/page_template/icons/italic-text_icon.svg);
+}
+
+#wmd-quote-button>span{
+    background-image: url(../images/page_template/icons/blockquote_left_icon.svg);
+}
+
+#wmd-code-button>span{
+    background-image: url(../images/page_template/icons/code_brackets_icon.svg);
+}
+
+.code {
+    display: inline;
+    background-color: lightgrey;
+    box-shadow: -1px 0 0 lightgrey, 1px 0 0 lightgrey;
+    padding: 1px 1px;
+    margin: 1px 1px;
+    border-radius: 1px;
+}
+
+.block {
+    display: inline;
+    background-color: lightgrey;
+    box-shadow: -1px 0 0 lightgrey, 1px 0 0 lightgrey;
+    padding: 1px 1px;
+    margin: 2px 2px 2px 4px;
+    border-radius: 1px;
+}

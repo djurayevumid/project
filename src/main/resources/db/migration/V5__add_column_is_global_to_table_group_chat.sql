@@ -1,0 +1,1 @@
+ALTER TABLE group_chat ADD COLUMN is_global boolean;

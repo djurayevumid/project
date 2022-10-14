@@ -1,0 +1,61 @@
+.fs-sm {
+    font-size: 0.75rem;
+}
+
+.fs-m {
+    font-size: 0.9rem;
+}
+
+.fs-m {
+    font-size: 0.9rem;
+}
+
+.btn-tag {
+    color: #fff;
+    background-color: #79a7c7;
+    border-color: #79a7c7;
+}
+
+.btn-filter {
+    color: #fff;
+    background-color: #79a7c7;
+    border-color: #4589ee;
+}
+
+.filter-link {
+    text-decoration: none;
+}
+
+.hide {
+    display: none;
+}
+
+.btn-primary.btn-sm {
+    margin-right: 6px;
+}
+.s-pagination {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -2px;
+    margin-right: -2px;
+}
+.a-pagination--item {
+    margin-left: 2px;
+    margin-right: 2px;
+    padding: 0 8px;
+    background-color: transparent;
+    border-radius: 3px;
+    border: 1px solid hsl(210, 8%, 85%);
+    font-size: 13px;
+    line-height: 1.92307692;
+}
+
+.a-is-selected {
+    background-color: hsl(27, 90%, 55%);
+    color: hsl(0, 0%, 100%);
+}
+
+a {
+    text-decoration: none;
+    cursor: pointer;
+}

@@ -1,0 +1,53 @@
+/*SIDEBAR*/
+
+aside {
+    background-color: #F8F9FA;
+    position: sticky;
+    top: 20%;
+    width: 250px;
+}
+
+#sideBar a{
+    text-decoration: none !important;
+    color: #393A3A;
+    font-family: -apple-system, "Blink Mac System Font", sans-serif;
+
+}
+
+#sideBar small{
+    font-size: 13px;
+    -webkit-transition: color 1s;
+    -moz-transition:    color 1s;
+    -ms-transition:     color 1s;
+    -o-transition:      color 1s;
+    transition:         color 1s;
+}
+
+#sideBar p{
+    font-size: 11px;
+    color: #393A3A;
+    font-family: -apple-system, "Blink Mac System Font", sans-serif;
+}
+
+.highlighted {
+    background: #F1F2F3 !important;
+    margin-right: -40px !important;
+    border-right: 3px solid #D57629 !important;
+}
+
+.highlighted small {
+    font-weight: bold;
+    color: #0C0D0E !important;
+}
+
+.sideBarElement {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.sideBarElement small:hover {
+    color: #77777a;
+}
+
+/*SIDEBAR END*/
